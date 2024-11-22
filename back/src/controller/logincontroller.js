@@ -1,4 +1,4 @@
-import { salvarlogin, consultarLogin } from '../repository/loginrepository.js';
+import { salvarlogin, consultarlogin } from '../repository/loginrepository.js';
 import { Router } from 'express';
 const endpoints = Router();
 
@@ -6,7 +6,7 @@ endpoints.post('/login', async (req, resp) => {
   try {
     const { user_nome, user_email, user_senha } = req.body;
 
-    const usuarioExistente = await consultarLogin(user_email);
+    const usuarioExistente = await consultarlogin(user_email);
     if (usuarioExistente.length > 0) {
       return resp.status(400).json({ message: 'E-mail já cadastrado!' });
     }
@@ -24,8 +24,7 @@ endpoints.post('/login/auth', async (req, resp) => {
   try {
     const { user_email, user_senha } = req.body;
 
-
-    const usuario = await consultarLogin(user_email, user_senha);
+    const usuario = await consultarlogin(user_email, user_senha);
 
     if (usuario.length > 0) {
 
